@@ -1,0 +1,9 @@
+name = Proxecto Curso Drupal Alumno 13
+description = Enables multi-user blogs.
+package = OSL
+version = 0.0.1
+core = 7.x
+
+dependencies[] = bootstrap
+
+
