@@ -49,6 +49,28 @@ function proxecto13_callback() {
       <div class="col-md-6">
         <h2>Datos Perfil</h2>
 
+        <table>
+            <tr>
+                <th>Localidade</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Enderezo</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Idade</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Teléfono Móbil</th>
+                <td></td>
+            </tr>
+        </table>
+        
+        <div>
+            <a class="btn btn-primary" href="">Modificar Perfil</a>
+        </div>
       </div>
     </div>
 
@@ -56,6 +78,7 @@ function proxecto13_callback() {
       <div class="col-md-12">
         <h2>Datos Entorno</h2>
 
+        
       </div>
     </div>
   </div>
