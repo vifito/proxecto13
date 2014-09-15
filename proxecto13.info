@@ -1,0 +1,6 @@
+name = Proxecto13
+description = Proxecto Curso Drupal Alumno 13.
+package = OSL
+version = 0.0.1
+core = 7.x
+

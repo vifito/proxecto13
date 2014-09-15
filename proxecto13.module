@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ */
+
+function proxecto13_page_alter(&$page) {
+  // Move search form into the footer.
+  //var_dump($page);
+}
+
+function proxecto13_menu() {
+  $items['proxecto13'] = array(
+    'title' => 'Proxecto 13',
+    'page callback' => 'proxecto13_callback',
+    'file' => 'inc/proxecto13_callback.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
