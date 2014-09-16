@@ -12,7 +12,7 @@ function proxecto13_menu() {
   $items['proxecto13'] = array(
     'title' => 'Proxecto 13',
     'page callback' => 'proxecto13_callback',
-    'file' => 'inc/proxecto13_callback.inc',
+    'file' => 'proxecto13_callback.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
@@ -22,11 +22,33 @@ function proxecto13_menu() {
 
 
 function proxecto13_theme($existing, $type, $theme, $path){
+  //var_dump($existing, $type, $theme, $path);die();
   return array(
-    'mymodule' => array(
-    'variables' => array(
-           'content' => "FOO"),
-          'template'  => 'mymodule', 
+    'proxecto13' => array(
+        'template' => 'proxecto13',
+
+        'variables' => array(
+          'user'       => NULL,
+          'acceso'     => NULL,
+          'picture'    => NULL,
+
+          'localidade' => NULL,
+          'enderezo'   => NULL,
+          'idade'      => NULL,
+          'mobil'      => NULL,
+
+          'site_name'   => NULL,
+          'site_slogan' => NULL,
+
+          'admin' => NULL,
+          'install_profile' => NULL,
+          'cron_last' => NULL,
+          'cron_key' => NULL,
+          'site_404' => NULL,
+          'site_403' => NULL,
+        ),
+
+        'path' => drupal_get_path('module', 'proxecto13'),
      )
   );
 }
