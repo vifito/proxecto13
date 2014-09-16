@@ -4,6 +4,8 @@
  * Plantilla para o proxecto13.
  *
  */
+
+//var_dump(get_defined_vars());die();
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -76,8 +78,8 @@
 
         <h4><?php echo $site_slogan ?: 'slogan sen definir' ?></h4>
 
-        <a class="btn btn-primary" href="#">Modificar Entorno</a>
-        <a class="btn btn-primary" href="#">Modificar Usuario</a>
+        <a class="btn btn-primary" href="<?php echo $GLOBALS['base_url'] . '/proxecto13-form-contorno' ?>">Modificar Entorno</a>
+        <a class="btn btn-primary" href="<?php echo $GLOBALS['base_url'] . '/proxecto13-form-usuario' ?>">Modificar Usuario</a>
       </div>
     </div>
   </div>
