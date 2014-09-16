@@ -21,19 +21,34 @@ function proxecto13_callback() {
     $picture = image_style_url('thumbnail', $user->picture->uri);
   }
 
-  $enderezo   = $user->field_enderezo['und'][0]['value'];
-  $localidade = $user->field_localidade['und'][0]['value'];
-  $idade      = $user->field_idade['und'][0]['value'];
-  $mobil      = $user->field_mobil['und'][0]['value'];
+  $enderezo = '';
+  if(isset($user->field_enderezo) && isset($user->field_enderezo['und'])) {
+    $enderezo   = $user->field_enderezo['und'][0]['value'];
+  }
+
+  $localidade = '';
+  if(isset($user->field_localidade) && isset($user->field_localidade['und'])) {
+    $localidade = $user->field_localidade['und'][0]['value'];
+  }
+
+  $idade = '';
+  if(isset($user->field_idade) && isset($user->field_idade['und'])) {
+    $idade = $user->field_idade['und'][0]['value'];
+  }
+
+  $mobil = '';
+  if(isset($user->field_mobil) && isset($user->field_mobil['und'])) {
+    $mobil = $user->field_mobil['und'][0]['value'];
+  }
 
   $site_name   = variable_get('site_name', '');
   $site_slogan = variable_get('site_slogan', NULL);
 
   $install_profile = variable_get('install_profile', '');
   $cron_last = variable_get('cron_last', '');
-  $cron_key = variable_get('cron_key', '');
-  $site_404 = variable_get('site_404', NULL);
-  $site_403 = variable_get('site_403', NULL);
+  $cron_key  = variable_get('cron_key', '');
+  $site_404  = variable_get('site_404', NULL);
+  $site_403  = variable_get('site_403', NULL);
 
 
   // Usuario admin:  uid == 1
