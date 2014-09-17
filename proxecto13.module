@@ -58,11 +58,15 @@ function proxecto13_menu() {
 
 
 function proxecto13_theme($existing, $type, $theme, $path){
+  global $base_url;
+
   return array(
     'proxecto13' => array(
         'template' => 'proxecto13',
 
         'variables' => array(
+          'base_url'   => $base_url,
+
           'user'       => NULL,
           'acceso'     => NULL,
           'picture'    => NULL,
@@ -88,14 +92,18 @@ function proxecto13_theme($existing, $type, $theme, $path){
 
      'proxecto13-404' => array(
        'template' => 'proxecto13-404',
-       'variables' => array(),
+       'variables' => array(
+         'base_url' => $base_url,
+       ),
        'path' => drupal_get_path('module', 'proxecto13'),
      ),
 
      
      'proxecto13-403' => array(
        'template' => 'proxecto13-403',
-       'variables' => array(),
+       'variables' => array(
+         'base_url' => $base_url,
+       ),
        'path' => drupal_get_path('module', 'proxecto13'),
      ),
   );
@@ -116,7 +124,6 @@ function proxecto13_form_contorno($node, &$form_state) {
   $form['slogan'] = array(
     '#title'       => t('Slogan do sitio'),    
     '#type'        => 'textfield',
-    '#required'    => TRUE,
     '#description' => t('Slogan do sitio'),
   );
   
@@ -138,10 +145,21 @@ function proxecto13_form_contorno($node, &$form_state) {
   return $form;
 }
 
+function proxecto13_form_contorno_validate($form, &$form_state) {
+
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ */
 function proxecto13_form_contorno_submit($form, &$form_state) {
-  
-  variable_set('site_name',   $form_state['values']['nome']);
-  variable_set('site_slogan', $form_state['values']['slogan']);
+
+  $site_name = check_plain($form_state['values']['nome']);
+  variable_set('site_name', $site_name);
+
+  $site_slogan = check_plain($form_state['values']['slogan']);
+  variable_set('site_slogan', $site_slogan);
 
   if(!empty($form_state['values']['on404'])) {
     variable_set('site_404', 'proxecto13-404');
@@ -176,21 +194,18 @@ function proxecto13_form_usuario($node, &$form_state) {
   $form['localidade'] = array(
     '#title'       => t('Localidade'),    
     '#type'        => 'textfield',
-    '#required'    => TRUE,
     '#description' => t('Localidade'),    
   );
 
   $form['idade'] = array(
     '#title'       => t('Idade'),    
     '#type'        => 'textfield',
-    '#required'    => TRUE,
     '#description' => t('Idade'),    
   );
 
   $form['telefono'] = array(
     '#title'       => t('Teléfono'),    
     '#type'        => 'textfield',
-    '#required'    => TRUE,
     '#description' => t('Teléfono'),    
   );  
   
@@ -202,24 +217,34 @@ function proxecto13_form_usuario($node, &$form_state) {
   return $form;
 }
 
+function proxecto13_form_usuario_validate($form, &$form_state) {
+
+  if($error = user_validate_name($form_state['values']['user_name'])) {
+    form_set_error('user_name', $error);
+  }
+
+  if($error = user_validate_mail($form_state['values']['mail'])) {
+    form_set_error('mail', $error);
+  }
+
+}
+
 function proxecto13_form_usuario_submit($form, &$form_state) {
-  var_dump($form_state);die();
-
-
-  require DRUPAL_ROOT.'/includes/password.inc';
-
-  // Password por defecto
-  $password = '12345';
+  require DRUPAL_ROOT . '/includes/password.inc';
 
   $account = new stdClass;
   $account->is_new = TRUE;
   $account->name = check_plain($form_state['values']['user_name']);
-  $account->pass = user_hash_password($password);
+  $account->pass = '12345'; //user_hash_password($password);
   $account->mail = $form_state['values']['mail'];
   $account->init = $form_state['values']['mail'];
   $account->status = TRUE;
   $account->roles = array(DRUPAL_AUTHENTICATED_RID => TRUE);
   //$account->timezone = variable_get('date_default_timezone', '');
+
+  $account->field_localidade['und'][0]['value'] = $form_state['values']['localidade'];
+  $account->field_idade['und'][0]['value']      = $form_state['values']['idade'];
+  $account->field_telefono['und'][0]['value']   = $form_state['values']['telefono'];
 
   user_save($account);
 }
