@@ -114,27 +114,36 @@ function proxecto13_theme($existing, $type, $theme, $path){
  *
  */
 function proxecto13_form_contorno($node, &$form_state) {
+  $site_name   = variable_get('site_name', '');
+  $site_slogan = variable_get('site_slogan', '');
+  $site_404    = !empty(variable_get('site_404', ''));
+  $site_403    = !empty(variable_get('site_403', ''));
+
   $form['nome'] = array(
     '#title'       => t('Nome do sitio'),    
     '#type'        => 'textfield',
     '#required'    => TRUE,
     '#description' => t('Nome do sitio'),    
+    '#value'      => $site_name,
   );
   
   $form['slogan'] = array(
     '#title'       => t('Slogan do sitio'),    
     '#type'        => 'textfield',
     '#description' => t('Slogan do sitio'),
+    '#value'       => $site_slogan,
   );
   
   $form['on404'] = array(
     '#title' => t('Activar páxina 404'),
     '#type'  => 'checkbox',    
+    '#value' => $site_404,
   ); 
    
   $form['on403'] = array(
     '#title' => t('Activar páxina 403'),
     '#type'  => 'checkbox',    
+    '#value' => $site_403,
   );
   
   $form['submit'] = array(
@@ -154,6 +163,7 @@ function proxecto13_form_contorno_validate($form, &$form_state) {
  * @param $form_state
  */
 function proxecto13_form_contorno_submit($form, &$form_state) {
+  firep($form_state);
 
   $site_name = check_plain($form_state['values']['nome']);
   variable_set('site_name', $site_name);
@@ -173,6 +183,8 @@ function proxecto13_form_contorno_submit($form, &$form_state) {
     variable_set('site_403', '');
   }
 
+  drupal_set_message(t('Valores do contorno gardados correctamente.'), 'status');
+  drupal_goto('proxecto13');
 }
 
 function proxecto13_form_usuario($node, &$form_state) {
@@ -242,11 +254,12 @@ function proxecto13_form_usuario_submit($form, &$form_state) {
   $account->roles = array(DRUPAL_AUTHENTICATED_RID => TRUE);
   //$account->timezone = variable_get('date_default_timezone', '');
 
-  $account->field_localidade['und'][0]['value'] = $form_state['values']['localidade'];
-  $account->field_idade['und'][0]['value']      = $form_state['values']['idade'];
-  $account->field_telefono['und'][0]['value']   = $form_state['values']['telefono'];
+  $edit = array();
+  $edit['field_localidade'][LANGUAGE_NONE][0]['value'] = $form_state['values']['localidade'];
+  $edit['field_idade'][LANGUAGE_NONE][0]['value']      = $form_state['values']['idade'];
+  $edit['field_telefono'][LANGUAGE_NONE][0]['value']   = $form_state['values']['telefono'];
 
-  user_save($account);
+  user_save($account, $edit);
 }
 
 /**
