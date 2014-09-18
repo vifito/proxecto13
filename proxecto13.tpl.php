@@ -6,6 +6,7 @@
  */
 
 //var_dump(get_defined_vars());die();
+firep(get_defined_vars());
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -86,10 +87,10 @@
 
       <div>
         <a class="btn btn-primary pull-left"
-           href="<?php echo $base_url . '/proxecto13-form-contorno' ?>">Modificar
+           href="<?php echo $base_url . '/proxecto13/contorno' ?>">Modificar
           Entorno</a>
         <a class="btn btn-primary pull-right"
-           href="<?php echo $base_url . '/proxecto13-form-usuario'
+           href="<?php echo $base_url . '/proxecto13/usuario'
            ?>">Engadir
           Usuario</a>
       </div>
@@ -104,7 +105,7 @@
       <table class="table table-hover">
         <tr>
           <th><?php echo t('URL do Sitio') ?></th>
-          <td><?php echo $GLOBALS['base_url'] ?></td>
+          <td><?php echo $base_url ?></td>
         </tr>
         <tr>
           <th><?php echo t('Administrador do Sitio') ?></th>
@@ -121,8 +122,10 @@
         <tr>
           <th><?php echo t('Última execución do CRON') ?></th>
           <td>
-            <?php echo date('d/m/Y H:i:s', $cron_last) ?>
-            <a class="btn btn-primary" href="<?php echo $GLOBALS['base_url'] . '/cron.php?cron_key=' .
+            <span id="cron-last">
+              <?php echo date('d/m/Y H:i:s', $cron_last) ?>
+            </span>
+            <a id="cron-button" class="btn btn-primary" href="<?php echo $base_url . '/cron.php?cron_key=' .
               $cron_key ?>">Executa</a>
           </td>
         </tr>
@@ -147,3 +150,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery('a#cron-button').click(function(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    jQuery('span#cron-last').html('Executando cron...');
+
+    jQuery.get('<?php echo $base_url . '/proxecto13/cron' ?>', function(data) {
+      // TODO: mostrar mensaxe de erro
+      jQuery('span#cron-last').html(data.cron_last);
+    });
+
+    return false;
+  });
+});
+</script>

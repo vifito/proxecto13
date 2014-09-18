@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * @todo Comentar todas as funcións, refactorifar noutro ficheiros e pasar Code_Sniffer
  */
 
 function proxecto13_page_alter(&$page) {
@@ -21,7 +22,7 @@ function proxecto13_menu() {
     'type' => MENU_CALLBACK,
   );
   
-  $items['proxecto13-form-contorno'] = array(
+  $items['proxecto13/contorno'] = array(
     'title' => 'Modificar Contorno',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('proxecto13_form_contorno'),
@@ -29,7 +30,7 @@ function proxecto13_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['proxecto13-form-usuario'] = array(
+  $items['proxecto13/usuario'] = array(
     'title' => 'Engadir Usuario',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('proxecto13_form_usuario'),
@@ -37,7 +38,7 @@ function proxecto13_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['proxecto13-404'] = array(
+  $items['proxecto13/404'] = array(
     'title' => '404 not found',
     'page callback' => 'proxecto13_404_callback',
     'file' => 'proxecto13_40X_callback.inc',
@@ -45,15 +46,33 @@ function proxecto13_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['proxecto13-403'] = array(
+  $items['proxecto13/403'] = array(
     'title' => '403 forbidden',
     'page callback' => 'proxecto13_403_callback',
     'file' => 'proxecto13_40X_callback.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-  ); 
+  );
+
+  $items['proxecto13/cron'] = array(
+    'page callback' => 'proxecto13_cron_ajax',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
   
   return $items;
+}
+
+function proxecto13_cron_ajax() {
+
+  $result = drupal_cron_run();
+
+  $data = array(
+    'success'   => $result,
+    'cron_last' => date('d/m/Y H:i:s', variable_get('cron_last'))
+  );
+
+  drupal_json_output($data);
 }
 
 
@@ -116,34 +135,36 @@ function proxecto13_theme($existing, $type, $theme, $path){
 function proxecto13_form_contorno($node, &$form_state) {
   $site_name   = variable_get('site_name', '');
   $site_slogan = variable_get('site_slogan', '');
-  $site_404    = !empty(variable_get('site_404', ''));
-  $site_403    = !empty(variable_get('site_403', ''));
+
+  // Yoda expressions: Comparar tu puedes, padawan!
+  $site_404 = ('' !== variable_get('site_404', ''));
+  $site_403 = ('' !== variable_get('site_403', ''));
 
   $form['nome'] = array(
-    '#title'       => t('Nome do sitio'),    
-    '#type'        => 'textfield',
-    '#required'    => TRUE,
-    '#description' => t('Nome do sitio'),    
-    '#value'      => $site_name,
+    '#title'         => t('Nome do sitio'),
+    '#type'          => 'textfield',
+    '#required'      => TRUE,
+    '#description'   => t('Nome do sitio'),
+    '#default_value' => $site_name,
   );
   
   $form['slogan'] = array(
-    '#title'       => t('Slogan do sitio'),    
-    '#type'        => 'textfield',
-    '#description' => t('Slogan do sitio'),
-    '#value'       => $site_slogan,
+    '#title'         => t('Slogan do sitio'),
+    '#type'          => 'textfield',
+    '#description'   => t('Slogan do sitio'),
+    '#default_value' => $site_slogan,
   );
   
   $form['on404'] = array(
-    '#title' => t('Activar páxina 404'),
-    '#type'  => 'checkbox',    
-    '#value' => $site_404,
+    '#title'         => t('Activar páxina 404'),
+    '#type'          => 'checkbox',
+    '#default_value' => $site_404,
   ); 
    
   $form['on403'] = array(
-    '#title' => t('Activar páxina 403'),
-    '#type'  => 'checkbox',    
-    '#value' => $site_403,
+    '#title'         => t('Activar páxina 403'),
+    '#type'          => 'checkbox',
+    '#default_value' => $site_403,
   );
   
   $form['submit'] = array(
@@ -172,13 +193,13 @@ function proxecto13_form_contorno_submit($form, &$form_state) {
   variable_set('site_slogan', $site_slogan);
 
   if(!empty($form_state['values']['on404'])) {
-    variable_set('site_404', 'proxecto13-404');
+    variable_set('site_404', 'proxecto13/404');
   } else {
     variable_set('site_404', '');
   }
 
   if(!empty($form_state['values']['on403'])) {
-    variable_set('site_403', 'proxecto13-403');
+    variable_set('site_403', 'proxecto13/403');
   } else {
     variable_set('site_403', '');
   }
@@ -244,9 +265,11 @@ function proxecto13_form_usuario_validate($form, &$form_state) {
 function proxecto13_form_usuario_submit($form, &$form_state) {
   require DRUPAL_ROOT . '/includes/password.inc';
 
+  $user_name = check_plain($form_state['values']['user_name']);
+
   $account = new stdClass;
   $account->is_new = TRUE;
-  $account->name = check_plain($form_state['values']['user_name']);
+  $account->name = $user_name;
   $account->pass = '12345'; //user_hash_password($password);
   $account->mail = $form_state['values']['mail'];
   $account->init = $form_state['values']['mail'];
@@ -259,7 +282,21 @@ function proxecto13_form_usuario_submit($form, &$form_state) {
   $edit['field_idade'][LANGUAGE_NONE][0]['value']      = $form_state['values']['idade'];
   $edit['field_telefono'][LANGUAGE_NONE][0]['value']   = $form_state['values']['telefono'];
 
-  user_save($account, $edit);
+  if (FALSE === user_save($account, $edit)) {
+    // Apareceu algún erro ao procesar o formularios
+    $message = t('Apareceu un erro ao tentar crear a conta de usuario: %user_name.',
+      array('%user_name' => $user_name));
+    drupal_set_message($message, 'error');
+    watchdog('proxecto13', $message);
+
+  } else {
+    // Usuario creado correctamente
+    $message = t('Usuario %user_name creado correctamente.', array('%user_name' => $user_name));
+    drupal_set_message($message, 'status');
+    watchdog('proxecto13', $message);
+    drupal_goto('proxecto13');
+  }
+
 }
 
 /**
