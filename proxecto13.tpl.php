@@ -125,8 +125,9 @@ firep(get_defined_vars());
             <span id="cron-last">
               <?php echo date('d/m/Y H:i:s', $cron_last) ?>
             </span>
-            <a id="cron-button" class="btn btn-primary" href="<?php echo $base_url . '/cron.php?cron_key=' .
-              $cron_key ?>">Executa</a>
+            <a id="cron-button" class="btn btn-primary" 
+               data-toggle="modal" data-target="#myModal" 
+               href="<?php echo $base_url . '/cron.php?cron_key=' . $cron_key ?>">Executa</a>
           </td>
         </tr>
         <tr>
@@ -151,17 +152,37 @@ firep(get_defined_vars());
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cron</h4>
+      </div>
+      <div class="modal-body">
+        Cron en execución ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Pechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 jQuery(document).ready(function() {
   jQuery('a#cron-button').click(function(evt) {
     evt.preventDefault();
     evt.stopPropagation();
 
+    jQuery('#myModal').modal('show'); 
     jQuery('span#cron-last').html('Executando cron...');
 
     jQuery.get('<?php echo $base_url . '/proxecto13/cron' ?>', function(data) {
       // TODO: mostrar mensaxe de erro
       jQuery('span#cron-last').html(data.cron_last);
+      jQuery('#myModal .modal-body').html('Cron actualizado con data: ' + data.cron_last);      
     });
 
     return false;
