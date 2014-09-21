@@ -28,7 +28,7 @@ function proxecto13_enable() {
         array(
           'field_name'  => $field_name,
           'label'       => $label,
-          'entity_type' => 'node',
+          'entity_type' => 'user',
           'bundle'      => 'user',
         )
       );
