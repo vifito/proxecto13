@@ -1,136 +1,151 @@
 <?php
 /**
  * @file
- * @todo Comentar todas as funcións, refactorifar noutro ficheiros e pasar Code_Sniffer
+ * Proxecto13, Módulo do Curso de Druapl Avanzado OSL 2014
  */
 
+/**
+ * Implements hook_page_alter().
+ */
 function proxecto13_page_alter(&$page) {
-  // Move search form into the footer.
-  //var_dump($page);
+  global $base_url;
+
+  if (in_array(current_path(), array('proxecto13/404', 'proxecto13/403'))) {
+    unset($page['sidebar_first']);
+  }
 }
 
 /**
- *
- */ 
+ * Implements hook_menu().
+ */
 function proxecto13_menu() {
-  // Páxina principal
+  // Páxina principal.
   $items['proxecto13'] = array(
     'title' => 'Proxecto 13',
     'page callback' => 'proxecto13_callback',
-    'file' => 'proxecto13_callback.inc',
+    'file' => 'inc/proxecto13_callback.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  
+
+  // Formulario de modificar contorno.
   $items['proxecto13/contorno'] = array(
     'title' => 'Modificar Contorno',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('proxecto13_form_contorno'),
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer users'),
     'type' => MENU_CALLBACK,
   );
 
+  // Formulario para engadir usuario.
   $items['proxecto13/usuario'] = array(
     'title' => 'Engadir Usuario',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('proxecto13_form_usuario'),
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer users'),
     'type' => MENU_CALLBACK,
   );
 
+  // Páxina 404.
   $items['proxecto13/404'] = array(
     'title' => '404 not found',
     'page callback' => 'proxecto13_404_callback',
-    'file' => 'proxecto13_40X_callback.inc',
+    'file' => 'inc/proxecto13_40X_callback.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
+  // Página 403.
   $items['proxecto13/403'] = array(
     'title' => '403 forbidden',
     'page callback' => 'proxecto13_403_callback',
-    'file' => 'proxecto13_40X_callback.inc',
+    'file' => 'inc/proxecto13_40X_callback.inc',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
+  // Executa CRON.
   $items['proxecto13/cron'] = array(
     'page callback' => 'proxecto13_cron_ajax',
     'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer users'),
   );
-  
+
   return $items;
 }
 
+/**
+ * Implements hook_cron_ajax().
+ */
 function proxecto13_cron_ajax() {
-
+  // Executar o cron.
   $result = drupal_cron_run();
 
+  // Datos para enviar en formato json.
   $data = array(
     'success'   => $result,
-    'cron_last' => date('d/m/Y H:i:s', variable_get('cron_last'))
+    'cron_last' => date('d/m/Y H:i:s', variable_get('cron_last')),
   );
 
   drupal_json_output($data);
 }
 
-
-function proxecto13_theme($existing, $type, $theme, $path){
+/**
+ * Implements hook_menu().
+ */
+function proxecto13_theme($existing, $type, $theme, $path) {
   global $base_url;
 
   return array(
     'proxecto13' => array(
-        'template' => 'proxecto13',
+      'template' => 'theme/proxecto13',
+      'variables' => array(
+        'base_url'   => $base_url,
 
-        'variables' => array(
-          'base_url'   => $base_url,
+        'user'       => NULL,
+        'acceso'     => NULL,
+        'picture'    => NULL,
 
-          'user'       => NULL,
-          'acceso'     => NULL,
-          'picture'    => NULL,
+        'localidade' => NULL,
+        'enderezo'   => NULL,
+        'idade'      => NULL,
+        'telefono'   => NULL,
 
-          'localidade' => NULL,
-          'enderezo'   => NULL,
-          'idade'      => NULL,
-          'mobil'      => NULL,
+        'site_name'   => NULL,
+        'site_slogan' => NULL,
 
-          'site_name'   => NULL,
-          'site_slogan' => NULL,
-
-          'admin' => NULL,
-          'install_profile' => NULL,
-          'cron_last' => NULL,
-          'cron_key' => NULL,
-          'site_404' => NULL,
-          'site_403' => NULL,
-        ),
-
-        'path' => drupal_get_path('module', 'proxecto13'),
-     ),
-
-     'proxecto13-404' => array(
-       'template' => 'proxecto13-404',
-       'variables' => array(
-         'base_url' => $base_url,
-       ),
-       'path' => drupal_get_path('module', 'proxecto13'),
-     ),
-
-     
-     'proxecto13-403' => array(
-       'template' => 'proxecto13-403',
-       'variables' => array(
-         'base_url' => $base_url,
-       ),
-       'path' => drupal_get_path('module', 'proxecto13'),
-     ),
+        'admin' => NULL,
+        'install_profile' => NULL,
+        'cron_last' => NULL,
+        'cron_key' => NULL,
+        'site_404' => NULL,
+        'site_403' => NULL,
+      ),
+      'path' => drupal_get_path('module', 'proxecto13'),
+    ),
+    'proxecto13-404' => array(
+      'template' => 'theme/proxecto13-404',
+      'variables' => array(
+        'base_url' => $base_url,
+      ),
+      'path' => drupal_get_path('module', 'proxecto13'),
+    ),
+    'proxecto13-403' => array(
+      'template' => 'theme/proxecto13-403',
+      'variables' => array(
+        'base_url' => $base_url,
+      ),
+      'path' => drupal_get_path('module', 'proxecto13'),
+    ),
   );
 
 }
 
 /**
- *
+ * Implements hook_form().
  */
 function proxecto13_form_contorno($node, &$form_state) {
   $site_name   = variable_get('site_name', '');
@@ -147,60 +162,76 @@ function proxecto13_form_contorno($node, &$form_state) {
     '#description'   => t('Nome do sitio'),
     '#default_value' => $site_name,
   );
-  
+
   $form['slogan'] = array(
     '#title'         => t('Slogan do sitio'),
     '#type'          => 'textfield',
     '#description'   => t('Slogan do sitio'),
     '#default_value' => $site_slogan,
   );
-  
+
   $form['on404'] = array(
     '#title'         => t('Activar páxina 404'),
     '#type'          => 'checkbox',
     '#default_value' => $site_404,
-  ); 
-   
+  );
+
   $form['on403'] = array(
     '#title'         => t('Activar páxina 403'),
     '#type'          => 'checkbox',
     '#default_value' => $site_403,
   );
-  
+
   $form['submit'] = array(
     '#type'  => 'submit',
-    '#value' => t('Enviar'),
+    '#attributes' => array(
+      'class' => array('btn btn-primary'),
+    ),
+    '#value' => t('Gardar'),
   );
-  
+
+  $form['cancel'] = array(
+    '#type'  => 'link',
+    '#href'  => 'proxecto13',
+    '#title'  => t('Cancelar'),
+  );
+
   return $form;
 }
 
+/**
+ * Implements hook_form_validate().
+ *
+ * Implementa a validación para o formulario de contorno.
+ * Sen uso.
+ */
 function proxecto13_form_contorno_validate($form, &$form_state) {
-
+  // Neste caso non realizamos validacións.
 }
 
 /**
- * @param $form
- * @param $form_state
+ * Implements hook_form().
+ *
+ * Implementa o submit do envío do formulario de contorno.
  */
 function proxecto13_form_contorno_submit($form, &$form_state) {
-  firep($form_state);
-
   $site_name = check_plain($form_state['values']['nome']);
   variable_set('site_name', $site_name);
 
   $site_slogan = check_plain($form_state['values']['slogan']);
   variable_set('site_slogan', $site_slogan);
 
-  if(!empty($form_state['values']['on404'])) {
+  if (!empty($form_state['values']['on404'])) {
     variable_set('site_404', 'proxecto13/404');
-  } else {
+  }
+  else {
     variable_set('site_404', '');
   }
 
-  if(!empty($form_state['values']['on403'])) {
+  if (!empty($form_state['values']['on403'])) {
     variable_set('site_403', 'proxecto13/403');
-  } else {
+  }
+  else {
     variable_set('site_403', '');
   }
 
@@ -208,93 +239,140 @@ function proxecto13_form_contorno_submit($form, &$form_state) {
   drupal_goto('proxecto13');
 }
 
+/**
+ * Implements hook_form().
+ *
+ * Implementa o formulario para engadir usuario.
+ */
 function proxecto13_form_usuario($node, &$form_state) {
 
   $form['user_name'] = array(
-    '#title'       => t('Nome de usuario'),    
+    '#title'       => t('Nome de usuario'),
     '#type'        => 'textfield',
     '#required'    => TRUE,
-    '#description' => t('Nome de usuario'),    
+    '#description' => t('Nome de usuario'),
   );
 
   $form['mail'] = array(
-    '#title'       => t('Email'),    
+    '#title'       => t('Email'),
     '#type'        => 'textfield',
     '#required'    => TRUE,
-    '#description' => t('Enderezo electrónico'),    
+    '#description' => t('Enderezo electrónico'),
+  );
+
+  $form['enderezo'] = array(
+    '#title'       => t('Enderezo'),
+    '#type'        => 'textfield',
+    '#description' => t('Enderezo'),
   );
 
   $form['localidade'] = array(
-    '#title'       => t('Localidade'),    
+    '#title'       => t('Localidade'),
     '#type'        => 'textfield',
-    '#description' => t('Localidade'),    
+    '#description' => t('Localidade'),
   );
 
   $form['idade'] = array(
-    '#title'       => t('Idade'),    
+    '#title'       => t('Idade'),
     '#type'        => 'textfield',
-    '#description' => t('Idade'),    
+    '#description' => t('Idade'),
   );
 
   $form['telefono'] = array(
-    '#title'       => t('Teléfono'),    
+    '#title'       => t('Teléfono'),
     '#type'        => 'textfield',
-    '#description' => t('Teléfono'),    
-  );  
-  
+    '#description' => t('Teléfono'),
+  );
+
   $form['submit'] = array(
     '#type'  => 'submit',
+    '#attributes' => array(
+      'class' => array('btn btn-primary'),
+    ),
     '#value' => t('Enviar'),
   );
-  
+
+  $form['cancel'] = array(
+    '#type'  => 'link',
+    '#href'  => 'proxecto13',
+    '#title'  => t('Cancelar'),
+  );
+
   return $form;
 }
 
+/**
+ * Implements hook_form_validate().
+ *
+ * Implementa a validación do formulario de engadir usuario.
+ */
 function proxecto13_form_usuario_validate($form, &$form_state) {
 
-  if($error = user_validate_name($form_state['values']['user_name'])) {
+  if ($error = user_validate_name($form_state['values']['user_name'])) {
     form_set_error('user_name', $error);
   }
 
-  if($error = user_validate_mail($form_state['values']['mail'])) {
+  if ($error = user_validate_mail($form_state['values']['mail'])) {
     form_set_error('mail', $error);
   }
 
 }
 
+/**
+ * Implements hook_form_submit().
+ *
+ * Implementa a funcionalidade de submit do formulario de engadir usuario.
+ */
 function proxecto13_form_usuario_submit($form, &$form_state) {
   require DRUPAL_ROOT . '/includes/password.inc';
 
-  $user_name = check_plain($form_state['values']['user_name']);
+  // Limpar os datos que veñen no formulario.
+  $user_name  = check_plain($form_state['values']['user_name']);
+  $mail       = check_plain($form_state['values']['mail']);
+  $enderezo   = check_plain($form_state['values']['enderezo']);
+  $localidade = check_plain($form_state['values']['localidade']);
+  $idade      = check_plain($form_state['values']['idade']);
+  $telefono   = check_plain($form_state['values']['telefono']);
 
-  $account = new stdClass;
+  // Crear obxecto cos campos de usuario.
+  $account = new stdClass();
   $account->is_new = TRUE;
   $account->name = $user_name;
-  $account->pass = '12345'; //user_hash_password($password);
-  $account->mail = $form_state['values']['mail'];
-  $account->init = $form_state['values']['mail'];
+  $account->pass = user_hash_password('12345');
+  $account->mail = $mail;
+  $account->init = $mail;
   $account->status = TRUE;
   $account->roles = array(DRUPAL_AUTHENTICATED_RID => TRUE);
-  //$account->timezone = variable_get('date_default_timezone', '');
+  $account->timezone = variable_get('date_default_timezone', 'Europe/Madrid');
 
+  // Campos adicionais do perfil.
   $edit = array();
-  $edit['field_localidade'][LANGUAGE_NONE][0]['value'] = $form_state['values']['localidade'];
-  $edit['field_idade'][LANGUAGE_NONE][0]['value']      = $form_state['values']['idade'];
-  $edit['field_telefono'][LANGUAGE_NONE][0]['value']   = $form_state['values']['telefono'];
+  $edit['field_enderezo'][LANGUAGE_NONE][0]['value']   = $enderezo;
+  $edit['field_localidade'][LANGUAGE_NONE][0]['value'] = $localidade;
+  $edit['field_idade'][LANGUAGE_NONE][0]['value']      = $idade;
+  $edit['field_telefono'][LANGUAGE_NONE][0]['value']   = $telefono;
 
-  if (FALSE === user_save($account, $edit)) {
-    // Apareceu algún erro ao procesar o formularios
-    $message = t('Apareceu un erro ao tentar crear a conta de usuario: %user_name.',
-      array('%user_name' => $user_name));
-    drupal_set_message($message, 'error');
-    watchdog('proxecto13', $message);
-
-  } else {
-    // Usuario creado correctamente
-    $message = t('Usuario %user_name creado correctamente.', array('%user_name' => $user_name));
-    drupal_set_message($message, 'status');
-    watchdog('proxecto13', $message);
-    drupal_goto('proxecto13');
+  // Capturamos calquera exception que poida ocurrir no proceso.
+  try {
+    if (FALSE !== user_save($account, $edit)) {
+      // Usuario creado correctamente.
+      $message = t('Usuario %user_name creado correctamente.', array('%user_name' => $user_name));
+      drupal_set_message($message, 'status');
+      watchdog('proxecto13', $message);
+      drupal_goto('proxecto13');
+    }
+    else {
+      // Apareceu algún erro ao procesar o formularios.
+      $message = t('Apareceu un erro ao tentar crear a conta de usuario: %user_name.',
+        array('%user_name' => $user_name));
+      drupal_set_message($message, 'error');
+      watchdog('proxecto13', $message);
+    }
+  }
+  catch (Exception $e) {
+    // Tentouse engadir un usuario co nome duplicado no sistema.
+    drupal_set_message($e->getMessage(), 'error');
+    watchdog('proxecto13', $e->getMessage());
   }
 
 }
@@ -303,7 +381,7 @@ function proxecto13_form_usuario_submit($form, &$form_state) {
  * Implements hook_form_alter().
  */
 function proxecto13_form_alter(&$form, &$form_state, $form_id) {
-  if('user_profile_form' == $form_id) {
-    drupal_set_title('Modificación perfíl proxecto OSL');
+  if ('user_profile_form' == $form_id) {
+    drupal_set_title(t('Modificación perfíl proxecto OSL'));
   }
 }

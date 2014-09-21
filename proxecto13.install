@@ -1,18 +1,54 @@
 <?php
 /**
  * @file
- *
+ * Instalador do módulo proxecto13.
  */
 
+/**
+ * Implements hook_enable().
+ */
 function proxecto13_enable() {
-  // Establecer a páxina principal ao valor da páxina do proxecto13
+  // Establecer a páxina principal ao valor da páxina do proxecto13.
   variable_set('site_frontpage', 'proxecto13');
 
-  watchdog('proxecto13', t('Estableceuse a páxina proxecto13 como site_frontpage.'));
+  /**
+   * Función interna para a creación de campos.
+   */
+  function proxecto13_create_field($field_name, $label) {
+    // Comprobar que non existe o campo previamente.
+    if (NULL === field_info_field($field_name)) {
+      field_create_field(
+        array(
+          'field_name' => $field_name,
+          'type'       => 'text',
+        )
+      );
+
+      field_create_instance(
+        array(
+          'field_name'  => $field_name,
+          'label'       => $label,
+          'entity_type' => 'node',
+          'bundle'      => 'user',
+        )
+      );
+    }
+  }
+
+  proxecto13_create_field('field_enderezo', 'Enderezo');
+  proxecto13_create_field('field_localidade', 'Localidade');
+  proxecto13_create_field('field_idade', 'Idade');
+  proxecto13_create_field('field_telefono', 'Teléfono Móbil');
+
+  watchdog('proxecto13', 'Estableceuse a páxina proxecto13 como site_frontpage.');
 }
 
+/**
+ * Implements hook_disable().
+ */
 function proxecto13_disable() {
+  // Reestablecer a páxina orixinal de portada.
   variable_set('site_frontpage', 'node');
 
-  watchdog('proxecto13', t('Restableceuse a páxina site_frontpage ao valor node.'));
+  watchdog('proxecto13', 'Restableceuse a páxina site_frontpage ao valor node.');
 }

@@ -4,6 +4,8 @@ package = OSL
 version = 0.0.1
 core = 7.x
 
+stylesheets[all][] = files/proxecto13.css
+
 dependencies[] = jquery_update
 
 
