@@ -23,181 +23,181 @@ msgstr ""
 
 #: proxecto13.module:159;162
 msgid "Nome do sitio"
-msgstr ""
+msgstr "Nome do sitio"
 
 #: proxecto13.module:167;169
 msgid "Slogan do sitio"
-msgstr ""
+msgstr "Slogan do sitio"
 
 #: proxecto13.module:174
 msgid "Activar páxina 404"
-msgstr ""
+msgstr "Activar páxina 404"
 
 #: proxecto13.module:180
 msgid "Activar páxina 403"
-msgstr ""
+msgstr "Activar páxina 403"
 
 #: proxecto13.module:190
 msgid "Gardar"
-msgstr ""
+msgstr "Gardar"
 
 #: proxecto13.module:196;298
 msgid "Cancelar"
-msgstr ""
+msgstr "Cancelar"
 
 #: proxecto13.module:238
 msgid "Valores do contorno gardados correctamente."
-msgstr ""
+msgstr "Valores do contorno gardados correctamente."
 
 #: proxecto13.module:250;253 theme/proxecto13.tpl.php:38
 msgid "Nome de usuario"
-msgstr ""
+msgstr "Nome de usuario"
 
 #: proxecto13.module:257 theme/proxecto13.tpl.php:42
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: proxecto13.module:260
 msgid "Enderezo electrónico"
-msgstr ""
+msgstr "Enderezo electrónico"
 
 #: proxecto13.module:264;266 theme/proxecto13.tpl.php:62
 msgid "Enderezo"
-msgstr ""
+msgstr "Enderezo"
 
 #: proxecto13.module:270;272 theme/proxecto13.tpl.php:58
 msgid "Localidade"
-msgstr ""
+msgstr "Localidade"
 
 #: proxecto13.module:276;278 theme/proxecto13.tpl.php:66
 msgid "Idade"
-msgstr ""
+msgstr "Idade"
 
 #: proxecto13.module:282;284
 msgid "Teléfono"
-msgstr ""
+msgstr "Teléfono"
 
 #: proxecto13.module:292
 msgid "Enviar"
-msgstr ""
+msgstr "Enviar"
 
 #: proxecto13.module:360;361
 msgid "Usuario %user_name creado correctamente."
-msgstr ""
+msgstr "Usuario %user_name creado correctamente."
 
 #: proxecto13.module:367;368
 msgid "Apareceu un erro ao tentar crear a conta de usuario: %user_name."
-msgstr ""
+msgstr "Apareceu un erro ao tentar crear a conta de usuario: %user_name."
 
 #: proxecto13.module:384
 msgid "Modificación perfíl proxecto OSL"
-msgstr ""
+msgstr "Modificación perfíl proxecto OSL"
 
 #: proxecto13.module:361;368;374 proxecto13.install:43;53
 msgid "proxecto13"
-msgstr ""
+msgstr "proxecto13"
 
 #: proxecto13.module:374
 msgid "Erro: %erro"
-msgstr ""
+msgstr "Erro: %erro"
 
 #: proxecto13.module:24
 msgid "Proxecto 13"
-msgstr ""
+msgstr "Proxecto 13"
 
 #: proxecto13.module:33
 msgid "Modificar Contorno"
-msgstr ""
+msgstr "Modificar Contorno"
 
 #: proxecto13.module:43
 msgid "Engadir Usuario"
-msgstr ""
+msgstr "Engadir Usuario"
 
 #: proxecto13.module:53
 msgid "404 not found"
-msgstr ""
+msgstr "404 not found"
 
 #: proxecto13.module:62
 msgid "403 forbidden"
-msgstr ""
+msgstr "403 forbidden"
 
 #: proxecto13.install:43
 msgid "Estableceuse a páxina proxecto13 como site_frontpage."
-msgstr ""
+msgstr "Estableceuse a páxina proxecto13 como site_frontpage."
 
 #: proxecto13.install:53
 msgid "Restableceuse a páxina site_frontpage ao valor node."
-msgstr ""
+msgstr "Restableceuse a páxina site_frontpage ao valor node."
 
 #: proxecto13.info:0
 msgid "Proxecto13"
-msgstr ""
+msgstr "Proxecto13"
 
 #: proxecto13.info:0
 msgid "Proxecto Curso Drupal Alumno 13."
-msgstr ""
+msgstr "Proxecto Curso Drupal Alumno 13."
 
 #: proxecto13.info:0
 msgid "OSL"
-msgstr ""
+msgstr "OSL"
 
 #: theme/proxecto13.tpl.php:14
 msgid "Datos de Acceso"
-msgstr ""
+msgstr "Datos de Acceso"
 
 #: theme/proxecto13.tpl.php:19
 msgid "Datos Perfil"
-msgstr ""
+msgstr "Datos Perfil"
 
 #: theme/proxecto13.tpl.php:24
 msgid "Datos Entorno"
-msgstr ""
+msgstr "Datos Entorno"
 
 #: theme/proxecto13.tpl.php:29
 msgid "Descrición do sistema"
-msgstr ""
+msgstr "Descrición do sistema"
 
 #: theme/proxecto13.tpl.php:46
 msgid "Último acceso"
-msgstr ""
+msgstr "Último acceso"
 
 #: theme/proxecto13.tpl.php:70
 msgid "Teléfono Móbil"
-msgstr ""
+msgstr "Teléfono Móbil"
 
 #: theme/proxecto13.tpl.php:77
 msgid "Modificar Perfil"
-msgstr ""
+msgstr "Modificar Perfil"
 
 #: theme/proxecto13.tpl.php:110
 msgid "URL do Sitio"
-msgstr ""
+msgstr "URL do Sitio"
 
 #: theme/proxecto13.tpl.php:114
 msgid "Administrador do Sitio"
-msgstr ""
+msgstr "Administrador do Sitio"
 
 #: theme/proxecto13.tpl.php:118
 msgid "Email administrador do sitio"
-msgstr ""
+msgstr "Email administrador do sitio"
 
 #: theme/proxecto13.tpl.php:122
 msgid "Estado SSL"
-msgstr ""
+msgstr "Estado SSL"
 
 #: theme/proxecto13.tpl.php:126
 msgid "Última execución do CRON"
-msgstr ""
+msgstr "Última execución do CRON"
 
 #: theme/proxecto13.tpl.php:140
 msgid "Perfil Instalado"
-msgstr ""
+msgstr "Perfil Instalado"
 
 #: theme/proxecto13.tpl.php:144
 msgid "Páxina 404"
-msgstr ""
+msgstr "Páxina 404"
 
 #: theme/proxecto13.tpl.php:151
 msgid "Páxina 403"
-msgstr ""
+msgstr "Páxina 403"
 
