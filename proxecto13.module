@@ -69,7 +69,7 @@ function proxecto13_menu() {
   // Executa CRON.
   $items['proxecto13/cron'] = array(
     'title' => 'Execución CRON',
-    'page callback' => 'proxecto13_cron',
+    'page callback' => 'proxecto13_cron_callback',
     'file' => 'inc/proxecto13_cron_callback.inc',
     'type' => MENU_CALLBACK,
     'access callback' => 'user_access',
