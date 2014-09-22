@@ -1,0 +1,14 @@
+/* Imaxes das páxinas 40X */
+div.proxecto13-404 img,
+div.proxecto13-403 img {
+    width: 100%;
+    border: 0;
+}
+
+/* Maquetación para as táboas cos datos do usuario */
+table tr>th {
+    text-align: right;
+    width: 240px !important;
+    white-space: nowrap;
+    vertical-align: middle !important;
+}
