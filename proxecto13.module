@@ -356,23 +356,22 @@ function proxecto13_form_usuario_submit($form, &$form_state) {
   try {
     if (FALSE !== user_save($account, $edit)) {
       // Usuario creado correctamente.
-      $message = t('Usuario %user_name creado correctamente.', array('%user_name' => $user_name));
-      drupal_set_message($message, 'status');
-      watchdog('proxecto13', $message);
+      $vars = array('%user_name' => $user_name);
+      drupal_set_message(t('Usuario %user_name creado correctamente.', $vars), 'status');
+      watchdog('proxecto13', 'Usuario %user_name creado correctamente.', $vars);
       drupal_goto('proxecto13');
     }
     else {
       // Apareceu algún erro ao procesar o formularios.
-      $message = t('Apareceu un erro ao tentar crear a conta de usuario: %user_name.',
-        array('%user_name' => $user_name));
-      drupal_set_message($message, 'error');
-      watchdog('proxecto13', $message);
+      $message = array('%user_name' => $user_name);
+      drupal_set_message(t('Apareceu un erro ao tentar crear a conta de usuario: %user_name.', $vars), 'error');
+      watchdog('proxecto13', 'Apareceu un erro ao tentar crear a conta de usuario: %user_name.', $vars);
     }
   }
   catch (Exception $e) {
     // Tentouse engadir un usuario co nome duplicado no sistema.
     drupal_set_message($e->getMessage(), 'error');
-    watchdog('proxecto13', $e->getMessage());
+    watchdog('proxecto13', 'Erro: %erro', array('%erro' => $e->getMessage()));
   }
 
 }

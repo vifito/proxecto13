@@ -1,0 +1,203 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  proxecto13.module: n/a
+#  theme/proxecto13.tpl.php: n/a
+#  proxecto13.install: n/a
+#  proxecto13.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-09-22 09:07+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: proxecto13.module:159;162
+msgid "Nome do sitio"
+msgstr ""
+
+#: proxecto13.module:167;169
+msgid "Slogan do sitio"
+msgstr ""
+
+#: proxecto13.module:174
+msgid "Activar páxina 404"
+msgstr ""
+
+#: proxecto13.module:180
+msgid "Activar páxina 403"
+msgstr ""
+
+#: proxecto13.module:190
+msgid "Gardar"
+msgstr ""
+
+#: proxecto13.module:196;298
+msgid "Cancelar"
+msgstr ""
+
+#: proxecto13.module:238
+msgid "Valores do contorno gardados correctamente."
+msgstr ""
+
+#: proxecto13.module:250;253 theme/proxecto13.tpl.php:38
+msgid "Nome de usuario"
+msgstr ""
+
+#: proxecto13.module:257 theme/proxecto13.tpl.php:42
+msgid "Email"
+msgstr ""
+
+#: proxecto13.module:260
+msgid "Enderezo electrónico"
+msgstr ""
+
+#: proxecto13.module:264;266 theme/proxecto13.tpl.php:62
+msgid "Enderezo"
+msgstr ""
+
+#: proxecto13.module:270;272 theme/proxecto13.tpl.php:58
+msgid "Localidade"
+msgstr ""
+
+#: proxecto13.module:276;278 theme/proxecto13.tpl.php:66
+msgid "Idade"
+msgstr ""
+
+#: proxecto13.module:282;284
+msgid "Teléfono"
+msgstr ""
+
+#: proxecto13.module:292
+msgid "Enviar"
+msgstr ""
+
+#: proxecto13.module:360;361
+msgid "Usuario %user_name creado correctamente."
+msgstr ""
+
+#: proxecto13.module:367;368
+msgid "Apareceu un erro ao tentar crear a conta de usuario: %user_name."
+msgstr ""
+
+#: proxecto13.module:384
+msgid "Modificación perfíl proxecto OSL"
+msgstr ""
+
+#: proxecto13.module:361;368;374 proxecto13.install:43;53
+msgid "proxecto13"
+msgstr ""
+
+#: proxecto13.module:374
+msgid "Erro: %erro"
+msgstr ""
+
+#: proxecto13.module:24
+msgid "Proxecto 13"
+msgstr ""
+
+#: proxecto13.module:33
+msgid "Modificar Contorno"
+msgstr ""
+
+#: proxecto13.module:43
+msgid "Engadir Usuario"
+msgstr ""
+
+#: proxecto13.module:53
+msgid "404 not found"
+msgstr ""
+
+#: proxecto13.module:62
+msgid "403 forbidden"
+msgstr ""
+
+#: proxecto13.install:43
+msgid "Estableceuse a páxina proxecto13 como site_frontpage."
+msgstr ""
+
+#: proxecto13.install:53
+msgid "Restableceuse a páxina site_frontpage ao valor node."
+msgstr ""
+
+#: proxecto13.info:0
+msgid "Proxecto13"
+msgstr ""
+
+#: proxecto13.info:0
+msgid "Proxecto Curso Drupal Alumno 13."
+msgstr ""
+
+#: proxecto13.info:0
+msgid "OSL"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:14
+msgid "Datos de Acceso"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:19
+msgid "Datos Perfil"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:24
+msgid "Datos Entorno"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:29
+msgid "Descrición do sistema"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:46
+msgid "Último acceso"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:70
+msgid "Teléfono Móbil"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:77
+msgid "Modificar Perfil"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:110
+msgid "URL do Sitio"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:114
+msgid "Administrador do Sitio"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:118
+msgid "Email administrador do sitio"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:122
+msgid "Estado SSL"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:126
+msgid "Última execución do CRON"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:140
+msgid "Perfil Instalado"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:144
+msgid "Páxina 404"
+msgstr ""
+
+#: theme/proxecto13.tpl.php:151
+msgid "Páxina 403"
+msgstr ""
+
