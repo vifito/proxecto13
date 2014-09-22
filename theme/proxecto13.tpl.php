@@ -202,6 +202,9 @@ jQuery(document).ready(function() {
 
       return false;
     });
+  } else {
+    // Ocultar modal se non está instalado bootstrap
+    jQuery('proxecto13-modal').hide();
   }
 });
 </script>
