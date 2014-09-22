@@ -159,7 +159,6 @@ function proxecto13_theme($existing, $type, $theme, $path) {
       'path' => drupal_get_path('module', 'proxecto13'),
     ),
 
-
   );
 
 }
