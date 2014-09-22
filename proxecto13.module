@@ -10,7 +10,14 @@
 function proxecto13_page_alter(&$page) {
   global $base_url;
 
-  if (in_array(current_path(), array('proxecto13/404', 'proxecto13/403'))) {
+  // Páxinas nas que se oculta o lateral esquerdo.
+  $pages = array(
+    'proxecto13/404',
+    'proxecto13/403',
+    'proxecto13/cron',
+  );
+
+  if (in_array(current_path(), $pages)) {
     unset($page['sidebar_first']);
   }
 }

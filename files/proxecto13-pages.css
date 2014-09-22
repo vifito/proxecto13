@@ -1,0 +1,95 @@
+/* Web fonts */
+@font-face {
+    font-family: 'Batman Forever Outline';
+    src: url('fonts/batman_forever_outline.eot');
+    src: url('fonts/batman_forever_outline.eot?#iefix') format('embedded-opentype'),
+        url('fonts/batman_forever_outline.svg#Batman Forever Outline') format('svg'),
+        url('fonts/batman_forever_outline.woff') format('woff'),
+        url('fonts/batman_forever_outline.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes spin {
+    0%   {
+        font-size: 0.5em;
+        opacity: 0.0;
+    }
+    50%  {
+        opacity: 0.4;
+    }
+    100% {
+        transform:rotate(360deg);
+        font-size: 3em;
+        opacity: 0.8;
+    }
+}
+
+/* Media queries para páxinas 40X */
+@media only screen and (min-device-width : 768px) {
+    h1.page-header {
+        background-image: url('bat.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+
+        position: fixed;
+        top: 6em;
+
+        left: 3.5em;
+        padding: 2.6em 1.0em;
+
+        text-align: center;
+        color: #FFF;
+        text-shadow: 2px 2px #333;
+        opacity: 0.8;
+        font-size: 3em;
+        font-weight: bold;
+        font-family: 'Batman Forever Outline', "Lucida Grande", Verdana, sans-serif;
+
+        border: 0 !important;
+        z-index: 80;
+
+        animation:spin 1s linear;
+    }
+
+
+
+    div.region-content {
+        position: relative;
+        top: 0;
+    }
+
+    h2.proxecto13-page-title {
+        position: absolute;
+        width: 100%;
+        bottom: 0em;
+        text-align: center;
+        color: #FFF;
+        background-color: #000;
+        opacity: 0.6;
+        font-size: 2.0em;
+        font-weight: bold;
+        font-family: 'Batman Forever Outline', "Lucida Grande", Verdana, sans-serif;
+        padding: 0.8em;
+        border: 0 !important;
+        transition:all 1s ease-out;
+        vertical-align: middle;
+        z-index: 120;
+    }
+
+    h2.proxecto13-page-title:hover {
+        opacity: 1.0;
+        padding: 3em;
+    }
+}
+
+@media only screen and (min-device-width : 1280px) {
+    h1.page-header {
+        left: 14em;
+        padding: 3em 2em;
+    }
+}
+
+
