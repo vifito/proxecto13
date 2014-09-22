@@ -68,7 +68,9 @@ function proxecto13_menu() {
 
   // Executa CRON.
   $items['proxecto13/cron'] = array(
-    'page callback' => 'proxecto13_cron_ajax',
+    'title' => 'Execución CRON',
+    'page callback' => 'proxecto13_cron',
+    'file' => 'inc/proxecto13_cron_callback.inc',
     'type' => MENU_CALLBACK,
     'access callback' => 'user_access',
     'access arguments' => array('administer users'),
@@ -80,7 +82,7 @@ function proxecto13_menu() {
 /**
  * Implements hook_cron_ajax().
  */
-function proxecto13_cron_ajax() {
+/*function proxecto13_cron_ajax() {
   // Executar o cron.
   $result = drupal_cron_run();
 
@@ -91,7 +93,7 @@ function proxecto13_cron_ajax() {
   );
 
   drupal_json_output($data);
-}
+}*/
 
 /**
  * Implements hook_menu().
@@ -140,6 +142,17 @@ function proxecto13_theme($existing, $type, $theme, $path) {
       ),
       'path' => drupal_get_path('module', 'proxecto13'),
     ),
+    'proxecto13-cron' => array(
+      'template' => 'theme/proxecto13-cron',
+      'variables' => array(
+        'base_url' => $base_url,
+        'success' => NULL,
+        'cron_last' => NULL,
+      ),
+      'path' => drupal_get_path('module', 'proxecto13'),
+    ),
+
+
   );
 
 }

@@ -130,7 +130,7 @@
             </span>
                 <a id="cron-button" class="btn btn-primary"
                    data-toggle="modal" data-target="#myModal"
-                   href="<?php echo $base_url . '/cron.php?cron_key=' . $cron_key ?>">
+                   href="<?php echo $base_url . '/proxecto13/cron' ?>">
                   <span class="glyphicon glyphicon-time"></span>
                   Executa
                 </a>
@@ -183,20 +183,25 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
-  jQuery('a#cron-button').click(function(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
+  // Bootstrap enabled
+  var bsEnabled = (typeof jQuery().modal == 'function');
 
-    jQuery('#proxecto13-modal').modal('show');
-    jQuery('span#cron-last').html('Executando cron...');
+  if(bsEnabled) { 
+    jQuery('a#cron-button').click(function(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
 
-    jQuery.get('<?php echo $base_url . '/proxecto13/cron' ?>', function(data) {
-      // TODO: mostrar mensaxe de erro
-      jQuery('span#cron-last').html(data.cron_last);
-      jQuery('#proxecto13-modal .modal-body').html('Cron actualizado con data: ' + data.cron_last);
+      jQuery('#proxecto13-modal').modal('show');
+      jQuery('span#cron-last').html('Executando cron...');
+
+      jQuery.get('<?php echo $base_url . '/proxecto13/cron' ?>', function(data) {
+        // TODO: mostrar mensaxe de erro
+        jQuery('span#cron-last').html(data.cron_last);
+        jQuery('#proxecto13-modal .modal-body').html('Cron actualizado con data: ' + data.cron_last);
+      });
+
+      return false;
     });
-
-    return false;
-  });
-});
+  }
+);
 </script>
